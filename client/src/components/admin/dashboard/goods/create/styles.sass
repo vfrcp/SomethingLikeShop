@@ -1,0 +1,18 @@
+.CreateGood
+  .dragAreaWrap
+    .dragArea
+      width: 300px
+      height: 300px
+      border: 3px red dashed
+    .dragArea.active
+      border: 3px red solid
+  .categoryName
+    transition: all 0.3s
+    &:hover
+      border: 3px solid red
+      cursor: pointer
+  .images
+    .imageButtons
+      display: flex
+      justify-content: space-between
+

@@ -1,0 +1,36 @@
+.ChangePage
+  .arrow
+    background: rgb(220, 53, 69)
+    width: 8px
+    position: relative
+    border-radius: 5px
+    transition: all 0.2s
+    &:hover
+      background: darken(rgb(220, 53, 69), 10)
+      &::before
+        background: darken(rgb(220, 53, 69), 10)
+      &::after
+        background: darken(rgb(220, 53, 69), 10)
+  .arrow
+    &::before
+      content: ""
+      position: absolute
+      width: 7px
+      height: 30px
+      left: -9px
+      top: -2px
+      border-radius: 5px
+      transform: rotate(45deg)
+      background: rgb(220, 53, 69)
+    &::after
+      content: ""
+      position: absolute
+      width: 7px
+      height: 30px
+      right: -9px
+      top: -2px
+      border-radius: 5px
+      transform: rotate(-45deg)
+      background: rgb(220, 53, 69)
+  .arrow.down
+    transform: rotate(180deg)
