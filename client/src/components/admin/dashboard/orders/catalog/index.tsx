@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Container, ListGroup, Row } from "react-bootstrap";
 import { useAction } from "../../../../../hooks/useAction";
 import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
+import { ChangePage } from "../../../../reuse/changePage";
 import "./styles.sass";
 
 export const OrdersCatalog = () => {
@@ -28,16 +29,20 @@ export const OrdersCatalog = () => {
     getUnconfirmedOrdersByPageAction(page)
   }, [page])
   useEffect(() => {
-    switch (ordersCatalogType) {
-      case "unconfirmed": getUnconfirmedOrdersByPageAction(1)
-        break
-      case "confirmed": getConfirmedOrdersByPageAction(1)
-        break
-      case "undone": getUndoneOrdersByPageAction(1)
-        break
-      case "done": getDoneOrdersByPageAction(1)
+    let searchPage = page
+    if(orders.error === "Заказы не найдены") {
+      searchPage = searchPage - 1
     }
-  }, [ordersCatalogType])
+    switch (ordersCatalogType) {
+      case "unconfirmed": getUnconfirmedOrdersByPageAction(searchPage)
+        break
+      case "confirmed": getConfirmedOrdersByPageAction(searchPage)
+        break
+      case "undone": getUndoneOrdersByPageAction(searchPage)
+        break
+      case "done": getDoneOrdersByPageAction(searchPage)
+    }
+  }, [ordersCatalogType,  page])
 
   return(
     <section className="OrdersCatalog">
@@ -70,6 +75,9 @@ export const OrdersCatalog = () => {
         }</Col>
         </Row>
       </Container>
+      <div className="ChangePageWrap">
+        <ChangePage page={page} setPage={setPage}/>
+      </div>
     </section>
   )
 }

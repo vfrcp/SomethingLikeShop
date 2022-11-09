@@ -8,17 +8,20 @@ import { Search } from "../../../../reuse/searchInput";
 
 export const CategoriesCatalog = () => {
   const [page, setPage] = useState<number>(1)
-  const {getCategoriesByPageAction, deleteCategoryByNameAction} = useAction()
+  const {getCategoriesByPageAction, deleteCategoryByNameAction, getCategoriesBySearchAndPageAction} = useAction()
   const navigate = useNavigate()
   const {categories} = useTypedSelector(state => state)
   useEffect(() => {
+    if(categories.error === "Категории не найдены") {
+      setPage(page - 1)
+    }
     getCategoriesByPageAction(page)
-  }, [page])
+  }, [page, categories])
   const deleteCategoryByName = (name: string) => {
     deleteCategoryByNameAction(name)
   }
   const searchWrapFunc = (string: string) => {
-    
+    getCategoriesBySearchAndPageAction(string, page)
   }
   return (
     <section>
