@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAction } from "../../../../../hooks/useAction";
 import { useTypedSelector } from "../../../../../hooks/useTypedSelector";
 import { ChangePage } from "../../../../reuse/changePage";
+import { CheckIsAdmin } from "../../../../reuse/checkIsAdmin";
 import { Search } from "../../../../reuse/searchInput";
 
 export const CategoriesCatalog = () => {
@@ -23,6 +24,7 @@ export const CategoriesCatalog = () => {
   const searchWrapFunc = (string: string) => {
     getCategoriesBySearchAndPageAction(string, page)
   }
+  //TODO: <CheckIsAdmin/> Это проверка на админа. Начал ее делать, пока еще ловлю луп который шлет тысячи запросов.
   return (
     <section>
       <Search whatSearch="Категории" by={[{value: "Имени", func: searchWrapFunc}]}/>
