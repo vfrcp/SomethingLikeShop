@@ -12,6 +12,14 @@ export class Admin {
       return generateWrongResponse(err)
     }
   }
+  static async isKeyValid(): Promise<IResponse> {
+    try {
+      return await FetchWrap.get(`${routes.admin.isKeyValid}`)
+    } catch (err) {
+      console.error(err)
+      return generateWrongResponse(err)
+    }
+  }
   static async login(data: {password: string, email: string}): Promise<IResponse> {
     try {
       const response = await FetchWrap.post(`${routes.admin.login}`, JSON.stringify(data))
@@ -34,7 +42,8 @@ export class Admin {
       return generateWrongResponse(err)
     }
   }
-  static async changePassword() {
+  // static async changePassword() {
 
-  }
+  // }
+
 }

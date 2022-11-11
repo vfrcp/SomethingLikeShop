@@ -17,14 +17,13 @@ export const CategoriesCatalog = () => {
       setPage(page - 1)
     }
     getCategoriesByPageAction(page)
-  }, [page, categories])
+  }, [page])
   const deleteCategoryByName = (name: string) => {
     deleteCategoryByNameAction(name)
   }
   const searchWrapFunc = (string: string) => {
     getCategoriesBySearchAndPageAction(string, page)
   }
-  //TODO: <CheckIsAdmin/> Это проверка на админа. Начал ее делать, пока еще ловлю луп который шлет тысячи запросов.
   return (
     <section>
       <Search whatSearch="Категории" by={[{value: "Имени", func: searchWrapFunc}]}/>
@@ -43,6 +42,7 @@ export const CategoriesCatalog = () => {
         }</Col></Row>
       </Container>
       <div className="changePageWrap"><ChangePage page={page} setPage={setPage}/></div>
+      <CheckIsAdmin/>
     </section>
   )
 }

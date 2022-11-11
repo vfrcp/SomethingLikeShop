@@ -9,9 +9,11 @@ declare global {
 export interface IConfig {
   serverInfo: {
     port: number
+    secretA: string
+    secretR: string
   }
   admin: {
-    accessKey: string | null,
+    accessKey: string | null
     keyLifeTimeInMs: number
   }
   db: {

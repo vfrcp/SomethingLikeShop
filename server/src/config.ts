@@ -3,6 +3,8 @@ import { IConfig } from "./types";
 export const config: IConfig = {
   serverInfo: {
     port: 5000,
+    secretA: "secretA",
+    secretR: "secretR",
   },
   admin: {
     accessKey: null,

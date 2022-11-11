@@ -3,7 +3,8 @@ export const routes = {
     login: "/admin/login",
     register: "/admin/register",
     isAdminExist: "/admin/isAdminExist",
-    changePassword: "",
+    isKeyValid: "admin/isKeyValid"
+    // changePassword: "",
   },
   categories: {
     create: "/categories/create",
