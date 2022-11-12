@@ -42,6 +42,14 @@ export class Admin {
       return generateWrongResponse(err)
     }
   }
+  static async getUserData() {
+    try {
+      return await FetchWrap.get(`${routes.admin.getUserData}`)
+    } catch (err) {
+      console.error(err)
+      return generateWrongResponse(err)
+    }
+  }
   // static async changePassword() {
 
   // }

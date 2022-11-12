@@ -13,6 +13,15 @@ export class AdminController {
       res.send(generateWrongResponse(err))
     }
   }
+  static async getUserData(req: Request<{}, {}, {}>, res: Response) {
+    try {
+      if(!req.isAdmin) throw responseAnswers.onlyAdmin
+      if(!req.authData) throw responseAnswers.withoutAuthData
+      res.send(req.authData)
+    } catch (err) {
+      res.send(generateWrongResponse(err))
+    }
+  }
   static async isKeyValid(req: Request<{}, {}, {}>, res: Response<IResponse>) {
     try {
       if(!req.isAdmin) throw responseAnswers.withoutKey

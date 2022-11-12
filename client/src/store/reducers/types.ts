@@ -75,6 +75,35 @@ export interface IOrdersActionFetch {
   error: null
 }
 
+export interface IUserState {
+  user: {
+    username: string
+    isAdmin: boolean
+  } | null
+  loading: boolean
+  error: string | null
+}
+export interface IUserActionSuccess {
+  type: "USER_SUCCESS"
+  loading: false
+  //Тут пока только один, а именно admin. Если в будущем буду улучшать, будут еще и другие
+  payload: {username: string, isAdmin: boolean}
+  error: null
+}
+export interface IUserActionWrong {
+  type: "USER_WRONG"
+  loading: false
+  payload: null
+  error: string
+}
+export interface IUserActionFetch {
+  type: "USER_FETCH"
+  loading: true
+  payload: null
+  error: null
+}
+
 export type ICategoriesAction = ICategoriesActionSuccess | ICategoriesActionWrong | ICategoriesActionFetch
 export type IGoodsAction = IGoodsActionSuccess | IGoodsActionWrong | IGoodsActionFetch 
 export type IOrdersAction = IOrdersActionSuccess | IOrdersActionWrong | IOrdersActionFetch
+export type IUserAction = IUserActionSuccess | IUserActionWrong | IUserActionFetch

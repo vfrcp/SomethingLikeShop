@@ -3,7 +3,9 @@ export const routes = {
     login: "/admin/login",
     register: "/admin/register",
     isAdminExist: "/admin/isAdminExist",
-    isKeyValid: "admin/isKeyValid"
+    //IsKeyValid это старый роут
+    isKeyValid: "admin/isKeyValid",
+    getUserData: "/admin/getUserData"
     // changePassword: "",
   },
   categories: {

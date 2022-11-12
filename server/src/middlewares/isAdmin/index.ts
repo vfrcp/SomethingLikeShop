@@ -19,7 +19,8 @@ export const isAdminMiddleware = (req: Request, res: Response, next: NextFunctio
     if(!tokenR || !tokenA) throw "Один или все токены отсутствуют" 
       const check = Tokens.check(tokenA.substring(7), tokenR)
       if(check.status === "normal" && check.data){
-        req.isAdmin = true
+        req.isAdmin = check.data.username === "admin"
+        req.authData = check.data
       }else if(check.status === "expired" && check.data) {
         const {uid, username} = check.data
         const newTokens = Tokens.create({uid, username})
@@ -28,10 +29,11 @@ export const isAdminMiddleware = (req: Request, res: Response, next: NextFunctio
           maxAge: 1000 * 60 * 60 * 24 * 30
         })
         res.header("Authorization", "Bearer " + newTokens.tokenA)
-        req.isAdmin = true
+        req.isAdmin = check.data.username === "admin"
+        req.authData = check.data
       }else if(check.status === "fullExpiresOrMissing" || check.status === "invalid") throw "Invalid or expired"
   } catch (err) {
-    req.isAdmin = true
+    req.isAdmin = false
   }finally {
     next()
   }

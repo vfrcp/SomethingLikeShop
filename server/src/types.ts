@@ -2,6 +2,7 @@ declare global {
   namespace Express {
     interface Request {
       isAdmin?: boolean
+      authData?: {username: string, uid: string}
     }
   }
 }

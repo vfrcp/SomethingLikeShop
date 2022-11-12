@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Form, Container, Button, Row, Col } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import { useAction } from "../../../../hooks/useAction";
+import { useTypedSelector } from "../../../../hooks/useTypedSelector";
 import { Http } from "../../../../models/http";
 
 export const AdminLogin = () => {
   const [emailInput, setEmailInput] = useState<string>("")
   const [isAdminExist, setIsAdminExist] = useState<boolean>(true)
   const [passwordInput, setPasswordInput] = useState<string>("") 
+  const {user} = useTypedSelector(state => state)
+  const {loginUserAction} = useAction()
   const navigate = useNavigate()
   useEffect(() => {(async () => {
     const isAdminExistFromServer = await Http.Admin.isAdminExist()
@@ -14,14 +18,19 @@ export const AdminLogin = () => {
       alert(isAdminExistFromServer.message):
       setIsAdminExist(isAdminExistFromServer.body)
   })()}, [])
+  useEffect(() => {(async () => {
+    //TODO: Позже нужно будет сделать красивое отображение ошибки,
+    // может в виде модалки или заменять один из лейблов в форме. Пока так, через алерт
+    if(user.error) alert(user.error)
+    if(user.user) navigate("/admin/dashboard")
+  })()}, [user])
   const login = async () => {
-    const response = await Http.Admin.login({password: passwordInput, email: emailInput})
-    if(response.status === "success") navigate("/admin/dashboard")  
-    if(response.status === "wrong") alert(response.message)
+    loginUserAction({password: passwordInput, email: emailInput})
   }
   return(
     <>
-      <Container>
+      <Container>{
+        !user.loading? 
         <Row className="justify-content-md-center">
           <Col xs="5">
           <Form className="form p-3">
@@ -39,11 +48,11 @@ export const AdminLogin = () => {
           </Form.Group>
           <Button variant="danger" type="button" onClick={login}>Войти</Button>
           <Button onClick={() => alert("Свяжитесь с создателем сайта чтобы удалить старый профиль")}>Забыли пароль?</Button>
-          <Link to="/admin/register">Register</Link>
+          {isAdminExist && <Link to="/admin/register">Register</Link>}
         </Form>
           </Col>
-        </Row>
-      </Container>
+        </Row>: <div>Загрузка...</div>
+      }</Container>
     </>
   )
 }
