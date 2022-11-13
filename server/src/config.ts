@@ -6,6 +6,9 @@ export const config: IConfig = {
     secretA: "secretA",
     secretR: "secretR",
   },
+  clientInfo: {
+    link: "http://localhost:3000"
+  },
   admin: {
     accessKey: null,
     keyLifeTimeInMs: 3600000 //One hour

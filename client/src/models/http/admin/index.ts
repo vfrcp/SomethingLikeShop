@@ -24,7 +24,6 @@ export class Admin {
     try {
       const response = await FetchWrap.post(`${routes.admin.login}`, JSON.stringify(data))
       if(response.status === "wrong") throw response.message
-      localStorage.setItem("key", response.body)
       return response
     } catch (err) {
       console.error(err)

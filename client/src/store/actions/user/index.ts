@@ -2,7 +2,7 @@ import { Dispatch } from "react"
 import { Http } from "../../../models/http"
 import { IUserAction } from "../../reducers/types"
 
-export const getUserData = () => {
+export const getUserDataAction = () => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
       dispatch({type: "USER_FETCH", payload: null, loading: true, error: null})

@@ -14,8 +14,8 @@ export const isAdminMiddleware = (req: Request, res: Response, next: NextFunctio
   //   next()
   // }
   try {
-    const tokenA = req.headers.authorization
-    const tokenR = req.cookies.RefreshToken
+    const tokenA = req.headers?.authorization
+    const tokenR = req.cookies?.RefreshToken
     if(!tokenR || !tokenA) throw "Один или все токены отсутствуют" 
       const check = Tokens.check(tokenA.substring(7), tokenR)
       if(check.status === "normal" && check.data){

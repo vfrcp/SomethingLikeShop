@@ -13,6 +13,9 @@ export interface IConfig {
     secretA: string
     secretR: string
   }
+  clientInfo: {
+    link: string
+  }
   admin: {
     accessKey: string | null
     keyLifeTimeInMs: number

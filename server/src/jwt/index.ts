@@ -6,11 +6,11 @@ export class Tokens {
   static create(payload: ITokenPayload) {
     // TODO: сделать жизнь токена больше
     return {
-      tokenA: JWT.sign(payload, config.serverInfo.secretR, {
-        expiresIn: "30 days"
+      tokenA: JWT.sign(payload, config.serverInfo.secretA, {
+        expiresIn: 100
       }),
-      tokenR: JWT.sign(payload, config.serverInfo.secretA, {
-        expiresIn: 10
+      tokenR: JWT.sign(payload, config.serverInfo.secretR, {
+        expiresIn: "30 days"
       })
     }
   }
@@ -35,8 +35,8 @@ export class Tokens {
         data: null
       }
       // Если токен не валидный, верифай бросает ошибку
-      const tokenRData = JWT.verify(tokenR, config.serverInfo.secretA) as ITokenPayload
-      const tokenAData = JWT.verify(tokenA, config.serverInfo.secretR) as ITokenPayload
+      const tokenAData = JWT.verify(tokenA, config.serverInfo.secretA) as ITokenPayload
+      const tokenRData = JWT.verify(tokenR, config.serverInfo.secretR) as ITokenPayload
       if(!this._isEqual(tokenAData, tokenRData)) {
         tokensStatus.status = "invalid"
       }else {

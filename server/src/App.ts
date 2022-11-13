@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookie from "cookie-parser";
 import { connect } from "mongoose";
 import { config } from "./config";
 
@@ -14,7 +15,13 @@ import path from "path";
 
 const App = express()
 
-App.use(cors())
+App.use(cors({
+  origin: config.clientInfo.link,
+  credentials: true,
+  exposedHeaders: ["Authorization"],
+  allowedHeaders: ["Authorization", "Content-type"]
+}))
+App.use(cookie())
 App.use(express.json())
 App.use("/images", express.static(path.join(__dirname, "images")))
 
